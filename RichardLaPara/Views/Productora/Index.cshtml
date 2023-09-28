@@ -1,0 +1,85 @@
+﻿@model Application.ViewModels.ProductoraViewModel
+
+<h1>Listado de Productora</h1>
+
+<button type="button" class="btn btn-success" onclick="ShowModal()">Crear Productor</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre del Distribuidor</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var productora in Model.data)
+        {
+
+            <tr>
+                <td>@productora.Nombre</td>
+                <td>
+                    <form id="crearProductoraForm" asp-action="Editar" method="post">
+
+                        <button type="submit" class="btn btn-primary">Modificar</button>
+                        <input class="btn_confirm" type="hidden" id=@productora.Id value="@productora.Id " asp-for="Id" asp-route-id="@productora.Id" />
+                      
+                       
+                    </form>
+
+                    <form id="crearProductoraForm" asp-action="Eliminar" method="post">
+
+                        <button type="submit" class="btn btn-primary">Eliminar</button>
+                        <input class="btn_confirm" type="hidden" id=@productora.Id value="@productora.Id " asp-for="Id" asp-route-id="@productora.Id" />
+
+
+                    </form>
+
+                  
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Crear Productora</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="crearProductoraForm" asp-action="Crear" method="post">
+                    <div class="form-group">
+                        <label for="Nombre">Nombre de la Productora</label>
+                        <input type="text" class="form-control" asp-for="Nombre" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function ShowModal() {
+        $("#exampleModal").modal('show');
+    }
+
+    
+</script>
+
+<script type="text/javascript">
+    function ShowModalCenter() {
+        $("#exampleModalCenter").modal('show');
+    }
+
+
+</script>

@@ -1,0 +1,116 @@
+﻿
+@model Application.ViewModels.SerieViewModel
+
+<h1>Listado de Series</h1>
+
+<div class="mosaic-container">
+    @foreach (var serie in Model.data)
+    {
+        <div class="mosaic-tile">
+            <img src="@serie.ImagenPortada" alt="@serie.Nombre" class="mosaic-image" />
+            <h2>@serie.Nombre</h2>
+
+            <p><strong>Productora:</strong> @serie.IdProductora</p>
+            @* <button class="btn btn-primary ver-detalle" data-id="@serie.Id" data-toggle="modal" data-target="#detalleModal">Ver Detalle</button> *@
+            <button type="button" class="btn btn-success  ver-detalle" data-id="@serie.Id" data-toggle="modal" data-target="#exampleModal" onclick=" ShowModal()">Ver Detalle</button>
+        </div>
+    }
+</div>
+
+
+<!-- Modal para mostrar detalles -->
+@* <div class="modal fade" id="detalleModal" tabindex="-1" role="dialog" aria-labelledby="detalleModalLabel" aria-hidden="true">
+  
+</div> *@
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detalleModalLabel">Detalles del Elemento</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>ID:</strong> <span id="detalleId"></span></p>
+                <p><strong>Nombre:</strong> <span id="detalleNombre"></span></p>
+                <p><strong>Descripción:</strong> <span id="detalleDescripcion"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" ddata-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<script type="text/javascript">
+    function ShowModal() {
+        $("#exampleModal").modal('show');
+    }
+
+
+</script>
+
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // Manejar el clic en el botón "Ver Detalle"
+            $(".ver-detalle").click(function () {
+                // Obtener los datos de la fila seleccionada
+                var id = $(this).data("id");
+                var nombre = $(this).data("Nombre");.text(); // Índice 1 para la columna Nombre
+                var descripcion = $(this).data("IdProductora");; // Índice 2 para la columna Descripción
+
+                // Llenar los campos del modal con los datos
+                $("#detalleId").text(id);
+                $("#detalleNombre").text(Nombre);
+                $("#detalleDescripcion").text(Uri);
+            });
+        });
+    </script>
+}
+
+
+
+    <style>
+
+    .mosaic-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .mosaic-tile {
+        width: 30%; /* Ajusta el ancho según tus preferencias */
+        margin: 10px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+        background-color: #fff;
+    }
+
+    .mosaic-image {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    /* Estilos para el botón de detalle */
+    .btn {
+        text-decoration: none;
+        background-color: #007bff;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 3px;
+    }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>

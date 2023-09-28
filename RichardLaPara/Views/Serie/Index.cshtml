@@ -1,0 +1,128 @@
+﻿@model List<Application.ViewModels.SerieViewModel>
+
+<h1 class="mt-4">Listado de Series</h1>
+
+<button type="button" class="btn btn-primary" onclick="ShowModal()">Crear Serie</button>
+
+<div class="row mt-4">
+    @foreach (var serie in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="@serie.ImagenPortada" class="card-img-top" alt="@serie.Nombre">
+                <div class="card-body">
+                    <h5 class="card-title">@serie.Nombre</h5>   
+                    <p class="card-text"><strong>Productora:</strong> @serie.IdProductora</p>
+                </div>
+                <div class="card-footer">
+                    <a href="@Url.Action("Editar", "Serie", new { id = serie.Id})" class="btn btn-primary">Editar</a>
+                    <a href="@Url.Action("Eliminar", "Serie", new { id = serie.Id})" class="btn btn-danger">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    }
+
+
+</div>
+
+<!-- Modal para Crear Serie -->
+<div class="modal fade" id="crearSerieModal" tabindex="-1" role="dialog" aria-labelledby="crearSerieModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crearSerieModalLabel">Crear Serie</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario para crear una serie -->
+                <form id="crearSerieForm" asp-action="Crear" method="post">
+                    <div class="form-group">
+                        <label for="nombreSerie">Nombre de la Productora</label>
+                        <input type="text" class="form-control" id="nombreSerie" name="nombreSerie" required>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="guardarSerie">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="crearSerieForm">
+                    <div class="form-group">
+                        <label for="nombreSerie">Nombre de la Serie</label>
+                        <input type="text" class="form-control" id="nombreSerie" name="nombreSerie" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="imagenPortada">Imagen de Portada</label>
+                        <input type="text" class="form-control" id="imagenPortada" name="imagenPortada" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="enlaceYoutube">Enlace de YouTube</label>
+                        <input type="text" class="form-control" id="enlaceYoutube" name="enlaceYoutube" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productora">Productora</label>
+                        <select class="form-control" id="productora" name="productora" required>
+                            <!-- Opciones de productoras generadas dinámicamente en el controlador -->
+                            @foreach (var serie in Model)
+                            {
+                                <option value="@serie.Id">@serie.IdProductora</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="generoPrimario">Género Primario</label>
+                        <select class="form-control" id="generoPrimario" name="generoPrimario" required>
+                            <!-- Opciones de géneros generadas dinámicamente en el controlador -->
+                            @foreach (var serie in Model)
+                            {
+                                <option value="@serie.Id">@serie.Id</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="generoSecundario">Género Secundario</label>
+                        <select class="form-control" id="generoSecundario" name="generoSecundario">
+                            <!-- Opciones de géneros generadas dinámicamente en el controlador -->
+                            @foreach (var serie in Model)
+                            {
+                                <option value="@serie.Id">@serie.Id</option>
+                            }
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function ShowModal() {
+
+        $("#exampleModal").modal('show');
+    }
+</script>
